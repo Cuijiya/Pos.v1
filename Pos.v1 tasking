@@ -3,17 +3,14 @@ Pos.v1
 input barcodeArr: [“ITEM000001”, …]
 
 output includeCountArr: [
-{barcode: ...
-count: …},
-...
+[barcode，count], ...
 ]
+
 
 #2 找到商品信息（5min）
 input
 includeCountArr: [
-{barcode: ...
-count: ...},
-...
+[barcode，count], ...
 ]
 
 itemslist: [
@@ -22,13 +19,13 @@ itemslist: [
 ]
 
 output goodlist: [
-{barcode: ..., name: ..., unit: ..., price: ..., count: ...},
+[barcode, {barcode: ..., name: ..., unit: ..., price: ..., count: ...}],
 …
 ]
 
-#3 根据promotion分解count (10min)
+#3 计算subtotal和discountSubtotal
 input goodlist: [
-{barcode: ..., name: ..., unit: ..., price: ..., count: ...},
+[barcode, {barcode: ..., name: ..., unit: ..., price: ..., count: ...}],
 …
 ]
 
@@ -38,47 +35,25 @@ barcodes: []},
 …
 ]
 
-output goodlistCom: [
-{barcode: …
-name: ...
-unit: ...
-price: ...
-newCount:…
-discountCount:...},
+output goodlist: [
+[barcode, {barcode: ..., name: ..., unit: ..., price: ..., count: ..., “isPromotion”, subtotal, discountSubtotal}],
 …
 ]
 
-
-
-#4计算每类商品价格(10min)
-input 
-goodlistCom:[
-{barcode: ..., name: ..., unit: ..., price: ..., newCount: ..., discountCount:... },
-…
-]        //根据price和newCount discountCount计算subtotal, discountSubtotal
-
-output subtotalArr:[
-{subtotal: …,
-discountSubtotal: ...},
+#4计算总价(5 min)
+input goodlist: [
+[barcode, {barcode: ..., name: ..., unit: ..., price: ..., count: ..., “isPromotion”, subtotal, discountSubtotal}],
 …
 ]
 
-#5计算总价(10min)
-input subtotalArr:[
-{subtotal: …,
-discountSubtotal: ...},
-…
-]
+output totalArr: [total, save]
 
-output total:
-total: number
-save: number
-
-#6合并信息并打印(8min)
+#5 合并信息并打印(8min)
 input
-goodlist: [Object]
-subtotal:[Object]
-total: number
-save: number
+goodlist: [
+[barcode, {barcode: ..., name: ..., unit: ..., price: ..., count: ..., “isPromotion”, subtotal, discountSubtotal}],
+…
+]
+totalArr: [total, save]
 
 output printlist: print
