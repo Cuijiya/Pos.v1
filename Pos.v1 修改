@@ -1,0 +1,84 @@
+Pos.v1
+#1计算商品数量 (10min)
+input barcodeArr: [“ITEM000001”, …]
+
+output includeCountArr: [
+{barcode: ...
+count: …},
+...
+]
+
+#2 找到商品信息（5min）
+input
+includeCountArr: [
+{barcode: ...
+count: ...},
+...
+]
+
+itemslist: [
+{barcode: ..., name: ..., unit: ..., price: …},
+…
+]
+
+output goodlist: [
+{barcode: ..., name: ..., unit: ..., price: ..., count: ...},
+…
+]
+
+#3 根据promotion分解count (10min)
+input goodlist: [
+{barcode: ..., name: ..., unit: ..., price: ..., count: ...},
+…
+]
+
+promotionArr: [
+{type: …
+barcodes: []},
+…
+]
+
+output goodlistCom: [
+{barcode: …
+name: ...
+unit: ...
+price: ...
+newCount:…
+discountCount:...},
+…
+]
+
+
+
+#4计算每类商品价格(10min)
+input 
+goodlistCom:[
+{barcode: ..., name: ..., unit: ..., price: ..., newCount: ..., discountCount:... },
+…
+]        //根据price和newCount discountCount计算subtotal, discountSubtotal
+
+output subtotalArr:[
+{subtotal: …,
+discountSubtotal: ...},
+…
+]
+
+#5计算总价(10min)
+input subtotalArr:[
+{subtotal: …,
+discountSubtotal: ...},
+…
+]
+
+output total:
+total: number
+save: number
+
+#6合并信息并打印(8min)
+input
+goodlist: [Object]
+subtotal:[Object]
+total: number
+save: number
+
+output printlist: print
